@@ -1,3 +1,3 @@
 ### 刷200道leetcode,加油！！！
 
-![Progress](http://progressed.io/bar/0?title=progress)
+![Progress](http://progressed.io/bar/1?title=progress)
