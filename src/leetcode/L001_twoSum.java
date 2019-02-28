@@ -14,29 +14,45 @@ import java.util.Map;
  * @author b1ng0
  *
  */
-public class L001_twoSum {
-	public int[] twoSum(int[] nums, int target) {
-
-		if (nums == null || nums.length <= 1) {
-			return new int[2];
-		}
-
-		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-
-		// key = target - nums[i], just one solution
-		for (int i = 0; i < nums.length; i++) {
-			map.put(target - nums[i], i);
-		}
-
-		for (int i = 0; i < nums.length; i++) {
-			Integer v = map.get(nums[i]);
-
-			// can't use itself
-			if (v != null && v != i) {
-				return new int[] { i + 1, v + 1 };
-			}
-		}
-
-		return null;
-	}
+	public class L001_twoSum {
+		//暴力
+		public int[] twoSum1(int[] nums, int target) {
+        int[] result = new int[2];
+        
+        for(int i = 0; i < nums.length; i++){
+            for(int j = i + 1; j < nums.length; j++){
+                if(nums[i] + nums[j] == target){
+                    result[0] = i;
+                    result[1] = j;
+                }
+            }
+        }
+        return result;
+    }
+    //两遍哈希表
+    public int[] twoSum2(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], i);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement) && map.get(complement) != i) {
+                return new int[] { i, map.get(complement) };
+            }
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+    //一遍哈希表
+    public int[] twoSum3(int[] nums, int target) {
+    	Map<Integer, Integer> map = new HashMap<>();
+    	for(int i = 0; i < nums.length; i++) {
+    		int complement = target - nums[i];
+    		if(map.containsKey(complement) && map.get(complement) != i) {
+    			return new int[] { i, map.get(complement)};
+    		}
+    	}
+    	throw new IllegalArgumentException("No two sum solution");
+    }
+    
 }
