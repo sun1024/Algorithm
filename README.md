@@ -1,3 +1,2 @@
-### 刷200道leetcode,加油！！！
+### 刷题仓库
 
-![Progress](http://progressed.io/bar/1?title=progress)
