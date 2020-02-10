@@ -39,7 +39,34 @@
  */
 class Solution {
     public int reverse(int x) {
-        
+        String result = "";
+        String str_x = String.valueOf(x);
+        if(x>=Math.pow(-2, 31) && x<=Math.pow(2, 31)-1)
+        {
+            int flag = 0;
+            if(str_x.charAt(0) == '-'){
+                result += '-';
+            }
+            for(int i=str_x.length()-1; i>=0; i--)
+            {
+                if (str_x.charAt(i) != '0'){
+                        flag = 1;
+                    }
+                if (flag == 1 && str_x.charAt(i) != '-'){
+                    result += str_x.charAt(i);
+                }
+            }
+            if(result != ""){
+                long re = Long.parseLong(result);
+                if(re>=Math.pow(-2, 31) && re<=Math.pow(2, 31)-1){
+                    return (int)re;
+                }else return 0;
+            }else{
+                return 0;
+            }
+        }
+        else
+        return 0;
     }
 }
 
