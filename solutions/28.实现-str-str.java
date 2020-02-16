@@ -41,6 +41,7 @@
 // @lc code=start
 class Solution {
     public int strStr(String haystack, String needle) { 
+        // 特殊情况提前返回
         if(needle.length()==0) return 0;
         if(haystack.length()==0) return -1;
         if(haystack.length()<needle.length()) return -1;
@@ -50,6 +51,7 @@ class Solution {
             if(haystack.equals(needle)) return 0;
             else return -1;
         }
+        //两层循环匹配
         for(int i=0; i<haystack.length(); i++) {
             for(int j=0; j<needle.length() && needle.length()<haystack.length()+1-i; j++) {
                 if(haystack.charAt(i+j)!=needle.charAt(j)) break;
