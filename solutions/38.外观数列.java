@@ -53,30 +53,30 @@ class Solution {
         if(n==1) return "1";
         if(n==2) return "11";
         if(n==3) return "21";
-        String n_value = "";
+        StringBuilder n_value = new StringBuilder();
         String n_last = countAndSay(n-1);
         for(int i=0; i<n_last.length(); i++) {
             for(int j=1; i+j<n_last.length(); j++) {
                 if(n_last.charAt(i+j)!=n_last.charAt(i)) {
-                    n_value += String.valueOf(j);
-                    n_value += n_last.charAt(i); 
+                    n_value.append(String.valueOf(j));
+                    n_value.append(n_last.charAt(i));
                     if(i+j==n_last.length()-1) {
-                        n_value += "1";
-                        n_value += n_last.charAt(i+j);
-                        return n_value;
+                        n_value.append("1");
+                        n_value.append(n_last.charAt(i+j));
+                        return n_value.toString();
                     }
                     i = i+j-1;  
                     break;  
                 }
                 if(i+j==n_last.length()-1) {
-                    n_value += String.valueOf(j+1);
-                    n_value += n_last.charAt(i);
-                    return n_value;
+                    n_value.append(String.valueOf(j+1));
+                    n_value.append(n_last.charAt(i));
+                    return n_value.toString();
                 }
 
             }
         }
-        return n_value;
+        return n_value.toString();
     }
 }
 // @lc code=end
