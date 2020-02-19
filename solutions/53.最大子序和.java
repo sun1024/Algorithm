@@ -29,15 +29,29 @@
  */
 
 // @lc code=start
+// O(n*n)
+// class Solution {
+//     public int maxSubArray(int[] nums) {
+//         int max = nums[0];
+//         for(int i=0; i<nums.length; i++) {
+//             int temp = 0;
+//             for(int j=i; j<nums.length; j++) {
+//                 temp += nums[j];
+//                 if(temp>max) max = temp;
+//             }
+//         }
+//         return max;
+//     }
+// }
+// O(n)
 class Solution {
     public int maxSubArray(int[] nums) {
         int max = nums[0];
-        for(int i=0; i<nums.length; i++) {
-            int temp = 0;
-            for(int j=i; j<nums.length; j++) {
-                temp += nums[j];
-                if(temp>max) max = temp;
-            }
+        int cur_max = nums[0];
+        for(int i=1; i<nums.length; i++) {
+            if(nums[i] > cur_max+nums[i]) cur_max = nums[i];
+            else cur_max += nums[i];
+            if(cur_max > max) max = cur_max;
         }
         return max;
     }
