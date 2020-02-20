@@ -24,7 +24,7 @@
  * 
  * 
  * 示例:
- * 
+ *  
  * 输入: "Hello World"
  * 输出: 5
  * 
@@ -34,30 +34,14 @@
 // @lc code=start
 class Solution {
     public int lengthOfLastWord(String s) {
-        if(s.length() == 0) return 0;
-        char blank = ' ';
-        int last_char_index = s.length()-1;
-        if(s.charAt(last_char_index) != blank) { //先判断末尾是否空格
-            for(int i=last_char_index; i>=0; i--) {
-                if(s.charAt(i) == blank) {
-                    if(i==s.length()-1) return 1;
-                    return s.length()-1-i;
-                }
-                if(i == 0) return s.length();
-            }
-        } else { //找出最后一个字符位置
-            for(int i=last_char_index; i>=0; i--) {
-                if(s.charAt(i) != blank) {
-                    last_char_index = i;
-                    break;
-                }
-            }
-            for(int i=last_char_index; i>=0; i--) {
-                if(s.charAt(i) == blank) return last_char_index-i;
-                if(i == 0) return last_char_index+1;
-            }
+        int length = 0;
+        for(int i=s.length()-1; i>=0; i--) {
+            //不是空格则长度加一
+            if(s.charAt(i) != ' ') length++; 
+            //不是末尾空格则返回单词长度
+            else if(length>0) return length; 
         }
-        return 0;
+        return length; //只有一个单词的情况
     }
 }
 // @lc code=end
