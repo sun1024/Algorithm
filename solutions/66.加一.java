@@ -1,6 +1,5 @@
 /*
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
  * @lc app=leetcode.cn id=66 lang=java
  *
  * [66] 加一

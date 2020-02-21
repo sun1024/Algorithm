@@ -1,5 +1,3 @@
-import javafx.scene.shape.QuadCurve;
-
 /*
  * @lc app=leetcode.cn id=69 lang=java
  *

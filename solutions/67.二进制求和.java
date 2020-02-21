@@ -1,7 +1,3 @@
-import java.io.CharArrayReader;
-
-import javax.print.attribute.HashAttributeSet;
-
 /*
  * @lc app=leetcode.cn id=67 lang=java
  *
