@@ -1,3 +1,5 @@
+import javafx.scene.shape.QuadCurve;
+
 /*
  * @lc app=leetcode.cn id=69 lang=java
  *
@@ -36,17 +38,32 @@
  */
 
 // @lc code=start
+// 暴力从小到大跑
+// class Solution {
+//     public int mySqrt(int x) {
+//         if(x == 0) return 0;
+//         int i = 1;
+//         while(x / i > i && x/i > i+1) {
+//             i++;
+//         }
+//         if(i*i>x) return i-1;
+//         return i;
+//     }
+// }
+// 二分法
 class Solution {
     public int mySqrt(int x) {
         if(x == 0) return 0;
-        if(x == 3) return 1;
-        if(x == 8) return 2;
-        if(x == 2147395599) return 46339;
-        int i = 1;
-        while(x / i > i && x/i > i+1) {
-            i++;
+        long left = 1; 
+        long right = x / 2;
+        while(left < right) {
+            long mid = (left + right + 1) / 2; // 注意取右中位数
+            long square = mid * mid;
+            if(square == x) return(int) mid;
+            if(square > x) right = mid-1;
+            else left = mid;
         }
-        return i;
+        return(int) left;
     }
 }
 // @lc code=end
