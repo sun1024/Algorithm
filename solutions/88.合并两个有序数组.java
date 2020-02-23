@@ -33,21 +33,49 @@
  */
 
 // @lc code=start
+// 暴力插入
+// class Solution {
+//     public void merge(int[] nums1, int m, int[] nums2, int n) {
+//         for(int i=0; i<nums2.length; i++) {
+//             for(int j=0; j<nums1.length; j++) {
+//                 if(j-i>=m) { // nums2[i]比nums1中所有数都大
+//                     nums1[j] = nums2[i];
+//                     break;
+//                 }
+//                 if(nums2[i]<=nums1[j]) {
+//                     for(int k=nums1.length-1; k>j; k--) {
+//                         nums1[k] = nums1[k-1];
+//                     }
+//                     nums1[j] = nums2[i];
+//                     break;
+//                 }
+//             }
+//         }
+//     }
+// }
+// 双指针 从前往后 需要额外空间
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        for(int i=0; i<nums2.length; i++) {
-            for(int j=0; j<nums1.length; j++) {
-                if(j-i>=m) { // nums2[i]比nums1中所有数都大
-                    nums1[j] = nums2[i];
-                    break;
-                }
-                if(nums2[i]<=nums1[j]) {
-                    for(int k=nums1.length-1; k>j; k--) {
-                        nums1[k] = nums1[k-1];
-                    }
-                    nums1[j] = nums2[i];
-                    break;
-                }
+        int[] nums1_copy = new int[m];
+        for(int i=0; i<m; i++) {
+            nums1_copy[i] = nums1[i];
+        }
+        int p = 0; //nums1_copy指针
+        int q = 0; //nums2指针
+        int j = 0; //nums1指针
+        while(p < m && q < n) {
+            nums1[j] = Math.min(nums1_copy[p], nums2[q]);
+            if(nums1_copy[p]>nums2[q]) q++;
+            else p++;
+            j++;
+        }
+        if(p < m) { // nums2都小于nums1_copy剩下的
+            for(int i=0; i<m-p; i++) {
+                nums1[n+p+i] = nums1_copy[p+i];
+            }
+        } else { // q < n  nums1_copy都小于nums2剩下的
+            for(int i=0; i<n-q; i++) {
+                nums1[m+q+i] = nums2[q+i];
             }
         }
     }
