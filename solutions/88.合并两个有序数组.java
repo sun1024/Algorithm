@@ -54,29 +54,46 @@
 //     }
 // }
 // 双指针 从前往后 需要额外空间
+// class Solution {
+//     public void merge(int[] nums1, int m, int[] nums2, int n) {
+//         int[] nums1_copy = new int[m];
+//         for(int i=0; i<m; i++) {
+//             nums1_copy[i] = nums1[i];
+//         }
+//         int p = 0; //nums1_copy指针
+//         int q = 0; //nums2指针
+//         int j = 0; //nums1指针
+//         while(p < m && q < n) {
+//             nums1[j] = Math.min(nums1_copy[p], nums2[q]);
+//             if(nums1_copy[p]>nums2[q]) q++;
+//             else p++;
+//             j++;
+//         }
+//         if(p < m) { // nums2都小于nums1_copy剩下的
+//             for(int i=0; i<m-p; i++) {
+//                 nums1[n+p+i] = nums1_copy[p+i];
+//             }
+//         } else { // q < n  nums1_copy都小于nums2剩下的
+//             for(int i=0; i<n-q; i++) {
+//                 nums1[m+q+i] = nums2[q+i];
+//             }
+//         }
+//     }
+// }
+// 双指针 从后往前 不需要额外空间
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int[] nums1_copy = new int[m];
-        for(int i=0; i<m; i++) {
-            nums1_copy[i] = nums1[i];
+        int p1 = m-1; //nums1
+        int p2 = n-1; //nums2
+        int p3 = m+n-1; //nums1空间大小大于或等于m+n,以m+n-1为开始
+        while(p1>=0 && p2>=0) {
+            nums1[p3] = Math.max(nums1[p1], nums2[p2]);
+            if(nums1[p1] > nums2[p2]) p1--;
+            else p2--;
+            p3--;
         }
-        int p = 0; //nums1_copy指针
-        int q = 0; //nums2指针
-        int j = 0; //nums1指针
-        while(p < m && q < n) {
-            nums1[j] = Math.min(nums1_copy[p], nums2[q]);
-            if(nums1_copy[p]>nums2[q]) q++;
-            else p++;
-            j++;
-        }
-        if(p < m) { // nums2都小于nums1_copy剩下的
-            for(int i=0; i<m-p; i++) {
-                nums1[n+p+i] = nums1_copy[p+i];
-            }
-        } else { // q < n  nums1_copy都小于nums2剩下的
-            for(int i=0; i<n-q; i++) {
-                nums1[m+q+i] = nums2[q+i];
-            }
+        if(p2>=0) { //nums1都比nums2剩下的大
+            for(int i=0; i<=p2; i++) nums1[i] = nums2[i];
         }
     }
 }
