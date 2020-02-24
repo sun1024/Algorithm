@@ -44,15 +44,35 @@
  */
 
 // @lc code=start
+// 暴力 O(n)
+// class Solution {
+//     public int searchInsert(int[] nums, int target) {
+//         int index = 0;
+//         for(int i=0; i<nums.length; i++) {
+//            if(nums[i] == target) return i;
+//            if(nums[i] > target) return i;
+//            if(i == nums.length-1) return nums.length;
+//         }
+//         return index;
+//     }
+// }
+// 二分法 O(logn)
 class Solution {
     public int searchInsert(int[] nums, int target) {
-        int index = 0;
-        for(int i=0; i<nums.length; i++) {
-           if(nums[i] == target) return i;
-           if(nums[i] > target) return i;
-           if(i == nums.length-1) return nums.length;
+        int left = 0;
+        int right = nums.length - 1;
+        while(left <= right) {
+            int mid = (left + right) / 2;
+            if(nums[mid] == target) {
+                return mid;
+            }
+            else if(nums[mid] > target) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
         }
-        return index;
+        return left;
     }
 }
 // @lc code=end
