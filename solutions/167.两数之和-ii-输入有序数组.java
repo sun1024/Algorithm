@@ -58,23 +58,44 @@ import javax.management.MBeanRegistration;
 //     }
 // }
 // 二分 O(n*logn)
+// class Solution {
+//     public int[] twoSum(int[] numbers, int target) {
+//         int[] result = new int[2];
+//         for(int i=0; i<numbers.length; i++) {
+//             int left = 1;
+//             int right = numbers.length - 1;
+//             while(left<=right) {
+//                 int mid = (left + right) / 2;
+//                 if(target-numbers[i] == numbers[mid]) {
+//                     result[0] = i+1;
+//                     result[1] = mid+1;
+//                     return result;
+//                 } else if(target-numbers[i] > numbers[mid]) {
+//                     left = mid + 1;
+//                 } else {
+//                     right = mid - 1;
+//                 }
+//             }
+//         }
+//         return result;
+//     }
+// }
+// 双指针 O(n)
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
         int[] result = new int[2];
-        for(int i=0; i<numbers.length; i++) {
-            int left = 1;
-            int right = numbers.length - 1;
-            while(left<=right) {
-                int mid = (left + right) / 2;
-                if(target-numbers[i] == numbers[mid]) {
-                    result[0] = i+1;
-                    result[1] = mid+1;
-                    return result;
-                } else if(target-numbers[i] > numbers[mid]) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
-                }
+        int p1 = 0;
+        int p2 = numbers.length-1;
+        while(p1<p2) {
+            if(numbers[p1]+numbers[p2] == target) {
+                result[0] = p1+1;
+                result[1] = p2+1;
+                return result;
+            }
+            if(target-numbers[p2] > numbers[p1]) {
+                p1++;
+            } else {
+                p2--;
             }
         }
         return result;
