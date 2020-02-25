@@ -57,32 +57,54 @@
 //     }
 // }
 // 排序+二分 O(n*logn)
+// class Solution {
+//     public int[] intersection(int[] nums1, int[] nums2) {
+//         Arrays.sort(nums1);
+//         HashSet<Integer> set = new HashSet<>();
+//         for(int i=0; i<nums2.length; i++) {
+//             // 在排序后的nums1中二分查找
+//             int left = 0;
+//             int right = nums1.length-1;
+//             while(left<=right) {
+//                 int mid = left + (right-left) / 2;
+//                 if(nums1[mid] == nums2[i]) {
+//                     set.add(nums2[i]);
+//                     break;
+//                 }
+//                 if(nums1[mid] > nums2[i]) {
+//                     right = mid - 1;
+//                 } else {
+//                     left = mid + 1;
+//                 }
+//             }
+
+//         }
+//         int p = 0;
+//         int[] res = new int[set.size()];
+//         for(int i:set) {
+//             res[p++] = i;
+//         }
+//         return res;
+//     }
+// }
+// HashSet 去重
 class Solution {
     public int[] intersection(int[] nums1, int[] nums2) {
-        Arrays.sort(nums1);
+        LinkedList<Integer> list = new LinkedList<>();
         HashSet<Integer> set = new HashSet<>();
-        for(int i=0; i<nums2.length; i++) {
-            // 在排序后的nums1中二分查找
-            int left = 0;
-            int right = nums1.length-1;
-            while(left<=right) {
-                int mid = left + (right-left) / 2;
-                if(nums1[mid] == nums2[i]) {
-                    set.add(nums2[i]);
-                    break;
-                }
-                if(nums1[mid] > nums2[i]) {
-                    right = mid - 1;
-                } else {
-                    left = mid + 1;
-                }
-            }
-
+        for(int i:nums1) {
+            set.add(i);
         }
-        int p = 0;
-        int[] res = new int[set.size()];
-        for(int i:set) {
-            res[p++] = i;
+        for(int i:nums2) {
+            if(set.contains(i)) {
+                list.addLast(i);
+                set.remove(i);
+            }
+        }
+        if(list.size() == 0) return new int[]{}; // 无交集
+        int[] res = new int[list.size()];
+        for(int i=0; i<list.size(); i++) {
+            res[i] = list.get(i);
         }
         return res;
     }
