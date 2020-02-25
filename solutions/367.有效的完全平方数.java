@@ -37,7 +37,7 @@ class Solution {
         // int left = 1;
         // int right = num - 1;
         long left = 1;
-        long right = num - 1;
+        long right = num / 2 + 1;
         while(left<=right) {
             // int mid = left + (right - left) / 2;
             long mid = left + (right - left) / 2;
