@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 /*
  * @lc app=leetcode.cn id=141 lang=java
  *
@@ -67,18 +69,32 @@
  * }
  */
 // 垃圾题目描述 哪里来的pos???
+// 快慢指针
+// public class Solution {
+//     public boolean hasCycle(ListNode head) {
+//         if(head == null || head.next == null) return false;
+//         // 快慢指针 相遇则有环
+//         ListNode fast = head.next;
+//         ListNode slow = head;
+//         while(fast != slow) {
+//             if(fast == null || fast.next == null) return false;
+//             fast = fast.next.next;
+//             slow = slow.next;
+//         }
+//         return true;
+//     }
+// }
+// 哈希表 
 public class Solution {
     public boolean hasCycle(ListNode head) {
         if(head == null || head.next == null) return false;
-        // 快慢指针 相遇则有环
-        ListNode fast = head.next;
-        ListNode slow = head;
-        while(fast != slow) {
-            if(fast.next == null || fast.next.next == null) return false;
-            fast = fast.next.next;
-            slow = slow.next;
+        HashSet<ListNode> set = new HashSet<>();
+        while(head.next != null) {
+            if(set.contains(head)) return true; //当前节点被指向过则有环
+            else set.add(head);
+            head = head.next;
         }
-        return true;
+        return false;
     }
 }
 // @lc code=end
