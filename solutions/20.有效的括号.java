@@ -56,46 +56,62 @@
  */
 
 // @lc code=start
+// 暴力
+// class Solution {
+//     public boolean isValid(String s) {
+//         if(s=="") return true;
+//         if(s.length()%2 == 1) return false;
+//         for(int i=0; i<s.length(); i++){
+//              if(s.charAt(i) == '('){
+//                  int flag = 0;
+//                  for(int j=i+1; j<s.length();){
+//                    if(s.charAt(j) == ')'){
+//                        flag = 1;
+//                        break;
+//                    }   
+//                    j += 2; 
+//                  }
+//                  if(flag == 0) return false;
+//              }   
+//              if(s.charAt(i) == '{'){
+//                  int flag = 0;
+//                  for(int j=i+1; j<s.length();){
+//                    if(s.charAt(j) == '}'){
+//                        flag = 1;
+//                        break;
+//                    }   
+//                    j += 2; 
+//                  }
+//                  if(flag == 0) return false;
+//              } 
+//              if(s.charAt(i) == '['){
+//                  int flag = 0;
+//                  for(int j=i+1; j<s.length();){
+//                    if(s.charAt(j) == ']'){
+//                        flag = 1;
+//                        break;
+//                    }   
+//                    j += 2; 
+//                  }
+//                  if(flag == 0) return false;
+//              }  
+//         }
+//         return true;
+//     }
+// }
+// 左括号入栈 右括号出栈
 class Solution {
     public boolean isValid(String s) {
         if(s=="") return true;
         if(s.length()%2 == 1) return false;
-        for(int i=0; i<s.length(); i++){
-             if(s.charAt(i) == '('){
-                 int flag = 0;
-                 for(int j=i+1; j<s.length();){
-                   if(s.charAt(j) == ')'){
-                       flag = 1;
-                       break;
-                   }   
-                   j += 2; 
-                 }
-                 if(flag == 0) return false;
-             }   
-             if(s.charAt(i) == '{'){
-                 int flag = 0;
-                 for(int j=i+1; j<s.length();){
-                   if(s.charAt(j) == '}'){
-                       flag = 1;
-                       break;
-                   }   
-                   j += 2; 
-                 }
-                 if(flag == 0) return false;
-             } 
-             if(s.charAt(i) == '['){
-                 int flag = 0;
-                 for(int j=i+1; j<s.length();){
-                   if(s.charAt(j) == ']'){
-                       flag = 1;
-                       break;
-                   }   
-                   j += 2; 
-                 }
-                 if(flag == 0) return false;
-             }  
+        Stack<Character> stack = new Stack<>();
+        for(char i:s.toCharArray()) {
+            if(i == '(') stack.push(')');
+            else if(i == '[') stack.push(']');
+            else if(i == '{') stack.push('}');
+            else if(stack.isEmpty() || i != stack.pop()) return false;
         }
-        return true;
+        return stack.isEmpty(); //最后全部出栈则括号全部匹配
     }
 }
 // @lc code=end
