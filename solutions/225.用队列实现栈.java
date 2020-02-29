@@ -1,5 +1,3 @@
-import sun.misc.Queue;
-
 /*
  * @lc app=leetcode.cn id=225 lang=java
  *
