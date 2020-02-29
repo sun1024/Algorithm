@@ -44,6 +44,7 @@
  */
 
 // @lc code=start
+//双栈实现队列
 class MyQueue {
 
     /** Initialize your data structure here. */
