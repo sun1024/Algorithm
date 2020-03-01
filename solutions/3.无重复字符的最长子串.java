@@ -52,7 +52,7 @@ class Solution {
         //从左向右滑动
         for(int j=0; j<s.length(); j++) {
             while(window.contains(s.charAt(j))) {  //包含j 则有重复
-                window.remove(s.charAt(i)); //不断的删除窗口左边 知道窗口与j不重复
+                window.remove(s.charAt(i)); //不断的删除窗口左边 直到窗口与j不重复
                 i++;
             }
             window.add(s.charAt(j)); //不重复的情况下 窗口扩展到j
