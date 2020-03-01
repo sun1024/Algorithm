@@ -1,5 +1,3 @@
-import java.util.Set;
-
 /*
  * @lc app=leetcode.cn id=3 lang=java
  *
@@ -43,20 +41,39 @@ import java.util.Set;
 
 // @lc code=start
 // 滑动窗口
+// class Solution {
+//     public int lengthOfLongestSubstring(String s) {
+//         //使用hashset作为滑动窗口 满足条件：不重复 便于查找窗口中是否存在下一个字符 O(1)
+//         Set<Character> window = new HashSet<>(); 
+//         int i = 0; //窗口左边
+//         int res = 0; //记录最长结果 把初始值赋为最小
+//         //从左向右滑动
+//         for(int j=0; j<s.length(); j++) {
+//             while(window.contains(s.charAt(j))) {  //包含j 则有重复
+//                 window.remove(s.charAt(i)); //不断的删除窗口左边 直到窗口与j不重复
+//                 i++;
+//             }
+//             window.add(s.charAt(j)); //不重复的情况下 窗口扩展到j
+//             res = Math.max(res, j-i+1); //比较当前窗口长度和历史最大值 此时j没有加一 j-i+1 [i,j]
+//         }
+//         return res;
+//     }
+// }
+// 优化的滑动窗口：窗口中存在与下一个元素s[j]重复时，可以直接找到重复元素的索引j1，直接滑动到j1以后
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        //使用hashset作为滑动窗口 满足条件：不重复 便于查找窗口中是否存在下一个字符 O(1)
-        Set<Character> window = new HashSet<>(); 
+        //使用hashmap作为滑动窗口 同时存储字符与其索引 提高滑动效率
+        Map<Character, Integer> window = new HashMap<>(); 
         int i = 0; //窗口左边
         int res = 0; //记录最长结果 把初始值赋为最小
         //从左向右滑动
         for(int j=0; j<s.length(); j++) {
-            while(window.contains(s.charAt(j))) {  //包含j 则有重复
-                window.remove(s.charAt(i)); //不断的删除窗口左边 直到窗口与j不重复
-                i++;
+            if(window.containsKey(s.charAt(j))) {  //包含j 则有重复
+                // 这里直接让i=j或者i=window.get(s.charAt(j)) 都会出问题 'dvdf' 'abba'
+                i = Math.max(i, window.get(s.charAt(j))); 
             }
-            window.add(s.charAt(j)); //不重复的情况下 窗口扩展到j
-            res = Math.max(res, j-i+1); //比较当前窗口长度和历史最大值 j-i+1
+            window.put(s.charAt(j), j+1); //直接存入索引j+1 有重复比较时 通过window.get(s.charAt(j))就能直接拿到j+1
+            res = Math.max(res, j-i+1); //比较当前窗口长度和历史最大值 j-i+1 [i, j]
         }
         return res;
     }
