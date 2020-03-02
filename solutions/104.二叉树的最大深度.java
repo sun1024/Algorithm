@@ -1,3 +1,7 @@
+import java.util.Queue;
+
+import javax.swing.tree.TreeNode;
+
 /*
  * @lc app=leetcode.cn id=104 lang=java
  *
@@ -42,10 +46,30 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+// 递归
+// class Solution {
+//     public int maxDepth(TreeNode root) {
+//         if(root == null) return 0; // 递归结束条件
+//         return Math.max(maxDepth(root.left), maxDepth(root.right))+1;
+//     }
+// }
+// BFS层次遍历
 class Solution {
     public int maxDepth(TreeNode root) {
-        if(root == null) return 0; // 递归结束条件
-        return Math.max(maxDepth(root.left), maxDepth(root.right))+1;
+        if(root == null) return 0; 
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        int level = 0;
+        while(!queue.isEmpty()) {
+            level++;
+            int size = queue.size(); //每层的元素总数
+            for(int i=0; i<size; i++) {
+                TreeNode node = queue.remove(); //先进先出 保证每一个元素的顺序
+                if(node.left != null) queue.add(node.left);
+                if(node.right != null) queue.add(node.right);
+            }
+        }
+        return level;
     }
 }
 // @lc code=end
