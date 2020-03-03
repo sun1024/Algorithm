@@ -54,10 +54,11 @@ class Solution {
         queue.add(root);
         while(!queue.isEmpty()) {
             List<Integer> list = new LinkedList<>();
-            int size = queue.size();
+            int size = queue.size(); // 每一层有多少个元素
             for(int i=0; i<size; i++) {
                 TreeNode node = queue.remove();
                 list.add(node.val);
+                // 下一层的元素放入队列
                 if(node.left != null) queue.add(node.left);
                 if(node.right != null) queue.add(node.right);
             }
