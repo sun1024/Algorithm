@@ -9,12 +9,25 @@ public class ListNode {
     }
 }*/
 // 递归
+// public class Solution {
+//     public ListNode ReverseList(ListNode head) {
+//         if(head == null|| head.next == null) return head;
+//         ListNode res = ReverseList(head.next);
+//         head.next.next = head;
+//         head.next = null;
+//         return res;
+//     }
+// }
+// 迭代
 public class Solution {
     public ListNode ReverseList(ListNode head) {
-        if(head == null|| head.next == null) return head;
-        ListNode res = ReverseList(head.next);
-        head.next.next = head;
-        head.next = null;
-        return res;
+        ListNode prev = null;
+        while(head != null) {
+            ListNode temp = head.next;
+            head.next = prev;
+            prev = head;
+            head = temp;
+        }
+        return prev;
     }
 }
