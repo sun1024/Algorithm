@@ -26,7 +26,7 @@ public class Solution {
     public int MoreThanHalfNum_Solution(int [] array) {
         if(array.length==0) return 0;
         int prev= array[0]; // 记录前面出现最多的值
-        int count = 1; // 出现的次数
+        int count = 0; // 出现的次数
         for(int i:array) {
             if(i==prev) count++; // 相等则次数增加
             else {
