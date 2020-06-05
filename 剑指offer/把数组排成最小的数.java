@@ -10,7 +10,7 @@ public class Solution {
         }
         fastSort(strs, 0, numbers.length-1);
         StringBuilder res = new StringBuilder();
-        for(int s:strs) {
+        for(String s:strs) {
             res.append(s);
         }
         return res.toString();
@@ -23,15 +23,27 @@ public class Solution {
             fastSort(strs, index+1, high);
         }
     }
-    // // 基准点，让左边所有数比它小，右边所有数比它大，这里的判断改为字符串比较
-    // private int partition(String[] strs, int low, int high) {
-    //     int i = low; 
-    //     int j = high;
-    //     String x = strs[i];
-    //     while(i<j) {
-    //         // 从右往左
-    //         while((x + strs[j]).compareTo(strs[j] + x) && i<j) j--;
-
-    //     }
-    // }
+    // 基准点，让左边所有数比它小，右边所有数比它大，这里的判断改为字符串比较
+    private int partition(String[] strs, int low, int high) {
+        int i = low; 
+        int j = high;
+        String x = strs[i];
+        while(i<j) {
+            // 从右往左
+            while((x + strs[j]).compareTo(strs[j] + x) <= 0  && i<j) j--;
+            if(i<j) {
+                strs[i] = strs[j];
+                i++;
+            }
+            // 从左往右
+            while((x + strs[i]).compareTo(strs[i] + x) >= 0  && i<j) i++;
+            if(i<j) {
+                strs[j] = strs[i];
+                j--;
+            }
+        }
+        // 把x填在剩下的位置上
+        strs[i] = x;
+        return i;
+    }
 }
