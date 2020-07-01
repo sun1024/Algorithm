@@ -43,37 +43,58 @@
  */
 
 // @lc code=start
+// class Solution {
+//     public boolean canPlaceFlowers(int[] flowerbed, int n) {
+//         // 排除只有一个元素的情况，方便后面少些判断
+//         if(flowerbed.length == 1) {
+//             if(flowerbed[0] == 0) return n<2;
+//             else return n<1;
+//         }
+//         int count = 0;
+//         for(int i=0; i<flowerbed.length-1; i++) {
+//             // 大前提是i上没种花
+//             if(flowerbed[i] == 0) {
+//                 if(i == 0) { // 注意判断条件
+//                     if(flowerbed[i+1] == 0) {
+//                         count++;
+//                         flowerbed[i] = 1; // 把花种上
+//                         i++; // 种上之后 i+1也不能种了 所以直接跳过
+//                     }
+//                 } else if(flowerbed[i-1] == 0 && flowerbed[i+1] == 0) { // 不包含最后一个元素，所以这里i-1和i+1一定存在
+//                     count++;
+//                     flowerbed[i] = 1;
+//                     i++;
+//                 }
+//             }
+//             // 提前返回
+//             if(count >= n) {
+//                 return true;
+//             }
+//         }
+//         // 单独处理最后一个元素
+//         if(flowerbed[flowerbed.length-1] == 0 && flowerbed[flowerbed.length-2] == 0) count++;
+//         if(count >= n) return true;
+//         else return false;
+//     }
+// }
 class Solution {
     public boolean canPlaceFlowers(int[] flowerbed, int n) {
-        // 排除只有一个元素的情况，方便后面少些判断
-        if(flowerbed.length == 1) {
-            if(flowerbed[0] == 0) return n<2;
-            else return n<1;
+        // 首尾加零 免去判断
+        int[] newPlace = new int[flowerbed.length + 2];
+        newPlace[0] = 0;
+        for(int i=0; i<flowerbed.length; i++) {
+            newPlace[i+1] = flowerbed[i];
         }
         int count = 0;
-        for(int i=0; i<flowerbed.length-1; i++) {
-            // 大前提是i上没种花
-            if(flowerbed[i] == 0) {
-                if(i == 0) { // 注意判断条件
-                    if(flowerbed[i+1] == 0) {
-                        count++;
-                        flowerbed[i] = 1; // 把花种上
-                        i++; // 种上之后 i+1也不能种了 所以直接跳过
-                    }
-                } else if(flowerbed[i-1] == 0 && flowerbed[i+1] == 0) { // 不包含最后一个元素，所以这里i-1和i+1一定存在
-                    count++;
-                    flowerbed[i] = 1;
-                    i++;
-                }
+        for(int i=1; i<newPlace.length-1; i++) {
+            if(newPlace[i] == 0 && newPlace[i-1] == 0 && newPlace[i+1] == 0) {
+                count++;
+                newPlace[i] = 1;
+                i++;
             }
-            // 提前返回
-            if(count >= n) {
-                return true;
-            }
+            if(count >= n) return true;
         }
-        // 单独处理最后一个元素
-        if(flowerbed[flowerbed.length-1] == 0 && flowerbed[flowerbed.length-2] == 0) count++;
-        if(count >= n) return true;
+        if(count >=n) return true;
         else return false;
     }
 }
