@@ -40,7 +40,7 @@ import java.util.Collections;
  *     ListNode(int x) { val = x; }
  * }
  */
-// 全部存入数组，暴力排序
+// 全部存入数组，暴力排序 O(NLogN)
 // class Solution {
 //     public ListNode mergeKLists(ListNode[] lists) {
 //         if(lists.length == 0) return null;
@@ -66,26 +66,63 @@ import java.util.Collections;
 //     }
 // }
 // 依次合并两条链表 O(NK)
+// class Solution {
+//     public ListNode mergeKLists(ListNode[] lists) {
+//         if(lists.length == 0) return null;
+//         ListNode res = null;
+//         for(ListNode list:lists) {
+//             res = merge2Lists(res, list);
+//         }
+//         return res;
+//     }
+//     // // 递归合并两条链表
+//     // private ListNode merge2Lists(ListNode list1, ListNode list2) {
+//     //     if(list1 == null) return list2;
+//     //     if(list2 == null) return list1;
+//     //     if(list1.val < list2.val) {
+//     //         list1.next = merge2Lists(list1.next, list2);
+//     //         return list1;
+//     //     }
+//     //     list2.next = merge2Lists(list1, list2.next);
+//     //     return list2;
+//     // }
+//     // // 迭代合并两条链表
+//     private ListNode merge2Lists(ListNode list1, ListNode list2) {
+//         ListNode res = new ListNode(0);
+//         ListNode head = res;
+//         while(list1 != null && list2 != null) {
+//             if(list1.val < list2.val) {
+//                 head.next = list1;
+//                 list1 = list1.next;
+//             } else {
+//                 head.next = list2;
+//                 list2 = list2.next;
+//             }
+//             head = head.next;
+//         }
+//         if(list1 == null) {
+//             head.next = list2;
+//         } else {
+//             head.next = list1;
+//         }
+//         return res.next;
+//     }
+// }
+// 归并的思想 两两合并时间复杂度降到O(NLogK) 
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
         if(lists.length == 0) return null;
-        ListNode res = null;
-        for(ListNode list:lists) {
-            res = merge2Lists(res, list);
-        }
-        return res;
+        int len = lists.length;
+        return mergeKLists(lists, 0, len-1);
     }
-    // // 递归合并两条链表
-    // private ListNode merge2Lists(ListNode list1, ListNode list2) {
-    //     if(list1 == null) return list2;
-    //     if(list2 == null) return list1;
-    //     if(list1.val < list2.val) {
-    //         list1.next = merge2Lists(list1.next, list2);
-    //         return list1;
-    //     }
-    //     list2.next = merge2Lists(list1, list2.next);
-    //     return list2;
-    // }
+
+    private ListNode mergeKLists(ListNode[] lists, int low, int high) {
+        if(low == high) return lists[low]; 
+        int mid = low + (high - low) / 2;
+        ListNode list1 = mergeKLists(lists, low, mid);
+        ListNode list2 = mergeKLists(lists, mid+1, high);
+        return merge2Lists(list1, list2);
+    }
     // // 迭代合并两条链表
     private ListNode merge2Lists(ListNode list1, ListNode list2) {
         ListNode res = new ListNode(0);
