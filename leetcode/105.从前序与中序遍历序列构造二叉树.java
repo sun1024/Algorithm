@@ -54,7 +54,7 @@ class Solution {
         int preLength = preorder.length;
         int inLength = inorder.length;
         if(preLength != inLength) return null;
-
+        // 用map存下中序数组的key-value
         for(int i=0; i<inLength; i++) {
             map.put(inorder[i], i);
         }
