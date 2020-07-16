@@ -69,7 +69,7 @@ class Solution {
                 // 奇偶判断
                 if(level%2 == 0) list.add(temp.val);
                 else list.addFirst(temp.val); // 这里利用LinkedList的方法直接往前插
-                if(temp.left != null) queue.add(temp.left);
+                if(temp.left != null) queue.add(temp.left); // queue的添加方法叫offer, 写成add是不太对的,但是不一定记得住
                 if(temp.right != null) queue.add(temp.right);
             }
             res.add(list);
