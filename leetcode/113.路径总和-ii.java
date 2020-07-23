@@ -66,7 +66,8 @@ class Solution {
         temp.add(root.val);
         // 确定一条路
         if(root.left == null && root.right == null && sum == root.val) {
-            res.add(new ArrayList<>(temp));
+            // 这里必须add一个新的数组，直接add(temp)的话，temp会继续变化的
+            res.add(new ArrayList<>(temp)); 
         }
         // 后序遍历 这里不太好理解
         // 左右根的方式遍历 方便进行回溯
