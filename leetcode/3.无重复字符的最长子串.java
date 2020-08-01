@@ -55,6 +55,7 @@
 //             }
 //             window.add(s.charAt(j)); //不重复的情况下 窗口扩展到j
 //             res = Math.max(res, j-i+1); //比较当前窗口长度和历史最大值 此时j没有加一 j-i+1 [i,j]
+//            //    res = Math.max(res, window.size()); // 窗口的大小即是j-i+1
 //         }
 //         return res;
 //     }
